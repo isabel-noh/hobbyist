@@ -13,10 +13,10 @@ const Router = () => {
                 <Route path="/" exact>
                     <Main />
                 </Route>
-                <Route path="/user/login" exact>
+                <Route path="/login" exact>
                     <Login />
                 </Route>
-                <Route path="/user/signup" exact>
+                <Route path="/signup" exact>
                     <Signup />
                 </Route>
 {/* 
@@ -27,7 +27,7 @@ const Router = () => {
                     <Post />
                 </Route>
 */}             
-                <Route component={PageNotFound} />
+                <Route path={"*"} component={PageNotFound}/>
             </Switch>
             
         </React.Fragment>

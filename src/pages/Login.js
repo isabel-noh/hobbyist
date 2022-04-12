@@ -1,37 +1,61 @@
 import React from "react";
 import styled from "styled-components";
 import Button from '@mui/material/Button';
-import { Input, Text } from "../elements";
+import { Input2, Text2 } from "../elements";
 import { useHistory } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import {actionCreators as userActions} from '../redux/modules/user';
 
 const Login = (props) => {
     const history = useHistory();
+    const dispatch = useDispatch();
+    const [username, setUsername] = React.useState();
+    const [password, setPassword] = React.useState();
+
+    const status = props.status;
+     //로그인 상태이면 메인으로 돌아가기
+     React.useEffect(() => {
+		if (status) history.push('/');
+	});
+
+    const loginUsername = (e) => {
+        setUsername(e.target.value);
+    }
+    const loginPassword = (e) => {
+        setPassword(e.target.value);
+    }
+    const login = () => {
+        dispatch(userActions.log_in({}));
+    }
+
     return (
         <React.Fragment>
+           
             <Wrap>
                 <div style={{textAlign: "center", margin: "20px auto"}}>
-                    <Text fontWeight="1000" fontSize="35px" >Log In</Text>
+                    <Text2 fontWeight="1000" fontSize="35px" >Log In</Text2>
                 </div>
                 
                 <div>
-                    <label htmlFor="id">ID</label>
-                    <Input id="id"  type="text" placeholder="아이디를 입력해주세요" />
+                    <label htmlFor="username">ID</label>
+                    <Input2 id="username" _onChange={loginUsername} type="text" placeholder="아이디를 입력해주세요" />
                     <label htmlFor="password">Password</label>
-                    <Input id="password" type="password" placeholder="비밀번호를 입력해주세요"/>
+                    <Input2 id="password" _onChange={loginPassword} type="password" placeholder="비밀번호를 입력해주세요"/>
                 </div><br />
 
                 <div>
                     <Button style={{width: "300px", color: "white", backgroundColor:"#ff9800"}}  
                             variant="contained"
+                            onClick={login}
                             >Log In</Button>
                 </div>
                 
             </Wrap>
             <Joinus>
-                <Text lineHeight="1.5em" fontSize="20px" fontWeight="1000">아직 회원이 아니신가요?</Text>
-                <Text lineHeight="3em">회원가입을 하시면 궁금하신 정보를 더 얻을 수 있습니다. </Text>
+                <Text2 lineHeight="1.5em" fontSize="20px" fontWeight="1000">아직 회원이 아니신가요?</Text2>
+                <Text2 lineHeight="3em">회원가입을 하시면 궁금하신 정보를 더 얻을 수 있습니다. </Text2>
                 <Button style={{color:"#ff9800"}} 
-                onClick={()=>{history.push(("/user/signup"))}}>회원가입하기</Button>
+                onClick={()=>{history.push(("/signup"))}}>회원가입하기</Button>
             </Joinus>
         </React.Fragment>
     )

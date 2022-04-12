@@ -4,12 +4,20 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from "react-router-dom";
+import { ConnectedRouter } from 'connected-react-router';
 import { Provider } from 'react-redux';
+import { history } from './redux/configStore';
+import store from './redux/configStore';
 
 ReactDOM.render(
-    <BrowserRouter>
+  <Provider store={store}>
+    <ConnectedRouter history={history}>
       <App />
-    </BrowserRouter>,
+      </ConnectedRouter>,
+  </Provider>,
+    // <BrowserRouter>
+    //   <App />
+    // </BrowserRouter>,
   document.getElementById('root')
 );
 

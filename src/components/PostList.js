@@ -1,14 +1,11 @@
 import React from 'react';
 import styled from "styled-components";
-import Text from "../elements/Text";
 import Post from '../elements/Post';
 
 const PostList = () => {
 
     return (
        <Postlist>
-           <Post />
-           <Post />
            <Post />
            <Post />
            <Post />

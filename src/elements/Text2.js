@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const Text = (props) => {
+const Text2 = (props) => {
     const {children, lineHeight, fontWeight, color, fontSize, margin} = props;
     const styles = {
         fontWeight: fontWeight, 
@@ -13,7 +13,7 @@ const Text = (props) => {
         <P {...styles}>{children}</P>
     )
 }
-Text.defaultProps = {
+Text2.defaultProps = {
     children: null,
     fontWeight: "400", 
     color: "black",
@@ -28,4 +28,4 @@ const P = styled.p`
     margin: ${(props) => props.margin};
     line-height: ${(props) => props.lineHeight};
 `
-export default Text;
+export default Text2;

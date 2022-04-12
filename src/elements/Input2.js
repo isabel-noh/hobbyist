@@ -1,10 +1,10 @@
 import styled from "styled-components";
 import React from "react";
-import Text from "./Text";
+import Text2 from "./Text2";
 
-const Input = (props) => {
+const Input2 = (props) => {
     const {
-        margin, border, width, height, placeholder, type, multiLine, _onChange, _value
+        margin, border, width, height, placeholder, type, multiLine, _onChange, _value, 
     } = props;
 
     if(multiLine){
@@ -32,7 +32,7 @@ const Input = (props) => {
         )
     }
 }
-Input.defaultProps = {
+Input2.defaultProps = {
     width: "100%",
     height: "2em",
     border: "1px solid #f8ac27",
@@ -66,4 +66,4 @@ const Textarea = styled.textarea`
     margin: 10px 0px;
     multiLine: true;
 `
-export default Input;
+export default Input2;
