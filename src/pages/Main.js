@@ -9,16 +9,16 @@ import { useDispatch, useSelector} from "react-redux";
 const Main = (props) => {
     const dispatch = useDispatch();
     const history = useHistory();
-    const [status, setStatus] = React.useState(props.status);
-
-    React.useEffect = () => {
-        if(status){
-            setStatus(true);
-        }else { 
-            setStatus(false);
-        }
-    }
-    if(status) {// isLogin = true
+    const status_login = useSelector((state) => state.user.status);
+    console.log(status_login);
+    // React.useEffect = () => {
+    //     if(status){
+    //         setStatus(true);
+    //     }else { 
+    //         setStatus(false);
+    //     }
+    // }
+    if(status_login) {// isLogin = true
         return (
             <React.Fragment>
                 <MainWrap>

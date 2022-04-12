@@ -33,7 +33,7 @@ export const RESP = {
             {
                 id: "isabel00",
                 title: "골프",
-                img: "",
+                img: "simba 복사본.png",
                 nickname: "isabel",
                 date: "2022-04-09",
                 commentCounts: 10,
@@ -41,7 +41,7 @@ export const RESP = {
             {
                 id: "isabel22",
                 title: "터프팅",
-                img: "",
+                img: "simba 복사본.png",
                 nickname: "isabella",
                 date: "2022-04-08",
                 commentCounts: 20,

@@ -23,85 +23,83 @@ const userAuth = createAction(USER_AUTH, (user) => ({user}));
 //initialState
 const initialState = {
     user:null,
-    username: null,
-    status: false, // status : 로그인 상태 여부
+    // username: null,
+    // status: false, // status : 로그인 상태 여부
     nickname: null,
 }
 
 //MiddleWares
 const sign_up = (username, nickname, password, passwordCheck) => {
     return function (dispatch, getState, {history}){
-        // const response = RESP.POSTSIGNUP;
-        // if(response.result.status === true){
-        //     console.log("middleware signup response : " + response.result.status );
-        //     //api...
-        //     window.alert("회원가입하셨습니다! 로그인을 해주세요.")
-        //     history.push("/login");
-        // }
-        apis
-        .signup(username, nickname, password, passwordCheck)
-        .then((response) => {
-            window.alert('성공적으로 회원가입 되었습니다! 로그인을 해주세요.');
-            history.push('/login');
-        })
-        .catch((err) =>{
-            window.alert('이미 존재하는 아이디 혹은 닉네임입니다. ');
-        })
+        const response = RESP.POSTSIGNUP;
+        if(response.result.status === true){
+            console.log("middleware signup response : " + response.result.status );
+            window.alert("회원가입하셨습니다! 로그인을 해주세요.")
+            history.push("/login");
+        }
+
+        // apis
+        // .signup(username, nickname, password, passwordCheck)
+        // .then((response) => {
+        //     window.alert('성공적으로 회원가입 되었습니다! 로그인을 해주세요.');
+        //     history.push('/login');
+        // })
+        // .catch((err) =>{
+        //     window.alert('이미 존재하는 아이디 혹은 닉네임입니다. ');
+        // })
     }   
 }
 
 const log_in = (username, password) => {
     return function (dispatch, getState, {history}) {
-        // const response = RESP.POSTUSERLOGIN;
-        // if(response.result.status === true){
-        //     //sessionstorage말고, redux에 status, true 저장
-        //     dispatch(logIn({
-        //         user: response.result.username, 
-        //         status: true
-        //     }));
-        //     window.alert("로그인되었습니다.")
-        //     history.replace("/");
-        // }else {
-        //     window.alert("회원정보를 다시 확인해주세요.")
-        // }
-        apis
-        .login(username, password)
-        .then((response) => {
-            dispatch(logIn({username: username}))
+        const response = RESP.POSTUSERLOGIN;
+
+        // apis
+        // .login(username, password)
+        // .then((response) => {
+            if(response.result.status === true)
+            {
+            //server로부터 받은 메시지를 리덕스 status에 저장하고 싶은데 .
+            dispatch(logIn({
+                user: response.result.username, 
+                status: response.result.status
+            }))
             localStorage.setItem('username', username);
             history.push('/');
-        })
+        }
+        // .catch((err) => {
+        //     window.alert("회원 정보를 다시 확인해주세요. 회원가입하지 않으셨다면 회원가입을 해주세요! ")
+        // })
     }   
 }
 
 const log_out = () => {
     return function (dispatch, getState, {history}){
+        localStorage.removeItem('username');
         dispatch(logOut());
         history.push("/");
     }
 }
 
 const user_auth = () => {
-    return async function (dispatch, getState) {
-        console.log("로그인체크합니다. ");
-        const response = RESP.GETUSERAUTH;
-        // const isLogin = sessionStorage.getItem('status');
+    return function (dispatch, getState) {
         // const username = localStorage.getItem('username');
-        if(response.result.nickname) {
-            dispatch(log_in({user: response.result.username, status: response.result.status}));
+        // apis
+        // .userAuth(username)
+        // .then()
+        const response = RESP.GETUSERAUTH;
+        if(response.result.status === true) {
+            dispatch(log_in({
+                username: response.result.username, status: true,
+                nickname: response.result.nickname,
+            }));
         }else{
             dispatch(log_out());
         }
     }
 }
-//server login check api만들어야됨.'
-//username nickname - > api / user/auth.. 
-
 //Reducer
 export default handleActions({
-    [SIGN_UP]: (state, action) => produce(state, (draft) => {
-        
-    }),
     [LOG_IN]: (state, action) => produce(state, (draft) => {
         draft.user = action.payload.user;
         draft.status = true;
@@ -111,7 +109,8 @@ export default handleActions({
         draft.status = false;
     }),
     [USER_AUTH]: (state, action) => produce(state, (draft) => {
-
+        draft.user = action.payload.user;
+        draft.status = true;
     })
 }, initialState);
 

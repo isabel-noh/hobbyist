@@ -9,21 +9,20 @@ import {actionCreators as userActions} from '../redux/modules/user';
 const Header = (props) => {
     const dispatch = useDispatch();
     const history = useHistory();
-    // const status_login = useSelector((state) => state.user.status);
-    // console.log(status_login);
-    const [status, setStatus] = React.useState(props.status);
+    const status_login = useSelector((state) => state.user.status);
+    console.log(status_login);
 
-    React.useEffect = () => {
-        if(status){
-            setStatus(true);
-        }else { 
-            setStatus(false);
-        }
-    }
+    // React.useEffect = () => {
+    //     if(status){
+    //         setStatus(true);
+    //     }else { 
+    //         setStatus(false);
+    //     }
+    // }
     const logOut = () => {
         dispatch(userActions.log_out());
     }
-    if(status){ //if(status) > status가 true이면 로그인했다는 것
+    if(status_login){ //if(status) > status가 true이면 로그인했다는 것
         return(
             <React.Fragment>
                 <HeaderWrap>

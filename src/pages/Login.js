@@ -25,7 +25,7 @@ const Login = (props) => {
         setPassword(e.target.value);
     }
     const login = () => {
-        dispatch(userActions.log_in({}));
+        dispatch(userActions.log_in({username, password}));
     }
 
     return (

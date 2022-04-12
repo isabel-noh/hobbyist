@@ -31,7 +31,7 @@ export const apis ={
             password: password,
         })
     },
-    userAuth: () =>{
+    userAuth: (username) =>{
         api.get('/user/auth');
     },
     logout: () => {
@@ -39,5 +39,3 @@ export const apis ={
     }
 
 }
-
-export default api;
