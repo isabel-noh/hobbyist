@@ -10,7 +10,7 @@ const Header = (props) => {
     const dispatch = useDispatch();
     const history = useHistory();
     const status_login = useSelector((state) => state.user.status);
-    console.log(status_login);
+    const nickname = localStorage.getItem('nickname');
 
     // React.useEffect = () => {
     //     if(status){
@@ -29,7 +29,7 @@ const Header = (props) => {
                     <Button variant="text" style={{fontSize: "2em", color: "white"}} 
                     onClick={()=>{history.push(("/"))}}>HOBBYIST</Button>
                     <ProfileWrap style={{display: "flex"}}>
-                        <Text fontSize="17px" margin="2%" color="white" style={{display:"inline-block"}}>nickname님 반갑습니다. </Text>
+                        <Text fontSize="17px" margin="2%" color="white" style={{display:"inline-block"}}>{nickname} 님 반갑습니다. </Text>
                         <Button style={{backgroundColor: "white", color: "#ff9800"}}
                         onClick={logOut}
                     >log out</Button>

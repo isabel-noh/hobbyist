@@ -1,14 +1,18 @@
 import React from 'react';
 import styled from "styled-components";
 import Post from '../elements/Post';
+import { useDispatch, useSelector } from 'react-redux';
+import { actionCreators as HobbyActions } from '../redux/modules/hobby';
 
-const PostList = () => {
 
+const PostList = (props) => {
+    const dispatch = useDispatch();
+    const hobbies = useSelector((state) => state.hobby.hobbies);
+    React.useEffect (()=> {
+        dispatch(HobbyActions.get_hobbies())
+    }, []);
     return (
        <Postlist>
-           <Post />
-           <Post />
-           <Post />
            <Post />
        </Postlist>
     )

@@ -8,8 +8,8 @@ import { useHistory } from "react-router-dom";
 
 const Signup = (props) => {
     const history = useHistory();
-    const status = props.status;
     const dispatch = useDispatch(); 
+    const isLogin = localStorage.getItem('nickname')? true: false ;
 
     const [username, setUsername] = React.useState();
     const [password, setPassword] = React.useState();
@@ -18,7 +18,7 @@ const Signup = (props) => {
 
     //로그인 상태이면 메인으로 돌아가기
     React.useEffect(() => {
-		if (status) history.push('/');
+		if (isLogin) history.push('/');
 	});
 
     const signupUsername = (e) => {

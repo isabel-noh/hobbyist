@@ -1,7 +1,7 @@
 import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
 import { RESP } from '../../response/response';
-import api, { apis } from "../../shared/api";
+import { apis } from "../../shared/api";
 
 const axios = require('axios').default;
 
@@ -32,8 +32,8 @@ const initialState = {
 const sign_up = (username, nickname, password, passwordCheck) => {
     return function (dispatch, getState, {history}){
         const response = RESP.POSTSIGNUP;
-        if(response.result.status === true){
-            console.log("middleware signup response : " + response.result.status );
+        if(response.status === true){
+            console.log("middleware signup response : " + response.status );
             window.alert("회원가입하셨습니다! 로그인을 해주세요.")
             history.push("/login");
         }
@@ -41,8 +41,10 @@ const sign_up = (username, nickname, password, passwordCheck) => {
         // apis
         // .signup(username, nickname, password, passwordCheck)
         // .then((response) => {
-        //     window.alert('성공적으로 회원가입 되었습니다! 로그인을 해주세요.');
-        //     history.push('/login');
+        //     if(response.status === true){
+        //         window.alert('성공적으로 회원가입 되었습니다! 로그인을 해주세요.');
+        //         history.push('/login');
+        //     } 
         // })
         // .catch((err) =>{
         //     window.alert('이미 존재하는 아이디 혹은 닉네임입니다. ');
@@ -53,20 +55,35 @@ const sign_up = (username, nickname, password, passwordCheck) => {
 const log_in = (username, password) => {
     return function (dispatch, getState, {history}) {
         const response = RESP.POSTUSERLOGIN;
+        if(response.status === true)
+        {
+        //server로부터 받은 메시지를 리덕스 status에 저장하고 싶은데 .
+        dispatch(logIn({
+            user: response.username, 
+            nickname: response.nickname,
+            // status: response.result.status
+        }))
+        localStorage.setItem('username', response.username);
+        localStorage.setItem('nickname', response.nickname);
+        history.push('/');
+        }
 
         // apis
         // .login(username, password)
         // .then((response) => {
-            if(response.result.status === true)
-            {
-            //server로부터 받은 메시지를 리덕스 status에 저장하고 싶은데 .
-            dispatch(logIn({
-                user: response.result.username, 
-                status: response.result.status
-            }))
-            localStorage.setItem('username', username);
-            history.push('/');
-        }
+        //     if(response.status === true)
+        //     {
+        //     //server로부터 받은 메시지를 리덕스 status에 저장하고 싶은데 .
+        //     dispatch(logIn({
+        //         user: response.username, 
+        //         nickname: response.nickname,
+        //         // status: response.result.status
+        //     }))
+        //     localStorage.setItem('username', response.username);
+        //     localStorage.setItem('nickname', response.nickname);
+        //     history.push('/');
+        //     }
+        // })
         // .catch((err) => {
         //     window.alert("회원 정보를 다시 확인해주세요. 회원가입하지 않으셨다면 회원가입을 해주세요! ")
         // })
@@ -76,26 +93,50 @@ const log_in = (username, password) => {
 const log_out = () => {
     return function (dispatch, getState, {history}){
         localStorage.removeItem('username');
+        localStorage.removeItem('nickname');
         dispatch(logOut());
         history.push("/");
+
+
+        // apis
+        //     .logout()
+        //     .then(()=> {
+        //         localStorage.removeItem('username');
+        //         localStorage.removeItem('nickname');
+        //         dispatch(logOut());
+        //         history.push("/");
+        //     })
     }
 }
 
 const user_auth = () => {
     return function (dispatch, getState) {
-        // const username = localStorage.getItem('username');
-        // apis
-        // .userAuth(username)
-        // .then()
+        const username = localStorage.getItem('username');
         const response = RESP.GETUSERAUTH;
-        if(response.result.status === true) {
+        if(response.status === true) {
             dispatch(log_in({
-                username: response.result.username, status: true,
-                nickname: response.result.nickname,
+                username: response.username,
+                status: true,
+                nickname: response.nickname,
             }));
         }else{
             dispatch(log_out());
         }
+        
+        // apis
+        // .userAuth()
+        // .then(()=>{
+        //     if(response.status === true) {
+        //         dispatch(log_in({
+        //             username: response.username,
+        //             status: true,
+        //             nickname: response.nickname,
+        //         }));
+        //     }else{
+        //         dispatch(log_out());
+        //     }
+        // })
+        
     }
 }
 //Reducer
