@@ -23,7 +23,8 @@ const Main = (props) => {
             <React.Fragment>
                 <MainWrap>
                     <Text2 fontWeight="1000" fontSize="30px">{nickname}님의 <span style={{color:"#ff9800", fontSize:"40px"}}>취미</span>를 공유해주세요</Text2>
-                    <Button style={{fontSize:"15px", borderRadius:"10px", marginTop: "20px", border:"1px solid #f7b028", color: "#ff9800"}} variant="outlined" >내 취미 공유하기</Button>
+                    <Button style={{fontSize:"15px", borderRadius:"10px", marginTop: "20px", border:"1px solid #f7b028", color: "#ff9800"}} variant="outlined"
+                    onClick={() => history.push("/post")} >내 취미 공유하기</Button>
                 </MainWrap>
                 <PostList />
             </React.Fragment>
