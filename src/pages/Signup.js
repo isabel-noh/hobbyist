@@ -11,10 +11,10 @@ const Signup = (props) => {
     const dispatch = useDispatch(); 
     const isLogin = localStorage.getItem('nickname')? true: false ;
 
-    const [username, setUsername] = React.useState();
-    const [password, setPassword] = React.useState();
-    const [nickname, setNickname] = React.useState();
-    const [passwordCheck, setPasswordCheck] = React.useState();
+    const [username, setUsername] = React.useState(""); // 초기값줘야돼 
+    const [password, setPassword] = React.useState("");
+    const [nickname, setNickname] = React.useState("");
+    const [passwordCheck, setPasswordCheck] = React.useState("");
 
     //로그인 상태이면 메인으로 돌아가기
     React.useEffect(() => {

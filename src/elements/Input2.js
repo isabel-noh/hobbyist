@@ -14,6 +14,7 @@ const Input2 = (props) => {
                 rows={10}
                 onChange={_onChange}
                 value={_value}>
+                
             </Textarea>
     )
     }
@@ -21,6 +22,7 @@ const Input2 = (props) => {
         return ( 
             <React.Fragment>
                 <Inputs 
+                    width={width}
                     placeholder={placeholder} 
                     type={type} 
                     onChange={_onChange} 
@@ -44,7 +46,7 @@ Input2.defaultProps = {
 }
 
 const Inputs = styled.input`
-    width: 290px;
+    width: ${(props)=> props.width};
     height: 2em;
     border: 1px solid #f8ac27;
     border-radius: 5px;
@@ -55,8 +57,8 @@ const Inputs = styled.input`
     margin: 10px 0px;
 `
 const Textarea = styled.textarea`
-    width: ${(props)=> props.width};
-    height: ${(props)=> props.height};
+    width: 100%;
+    height: 220px;
     border: 1px solid #f8ac27;
     border-radius: 5px;
     label: ${(props)=> props.label};

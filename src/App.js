@@ -18,8 +18,12 @@ function App() {
   const dispatch = useDispatch();
   const history = useHistory();
   //const status = redux에 status라는 변수를 만들어서 거기다가 저장하는 방식으로 갈까봐
+  const isLogin = useSelector((state) => state.user.status);
+
   useEffect(() => {
-		dispatch(userActions.log_in());
+		if(isLogin){
+      dispatch(userActions.user_auth());
+    }
 	}, []);
   //cookie - jsessionID
 
@@ -53,8 +57,11 @@ function App() {
           </Route>
           <Route path={"*"} component={PageNotFound}/>
       </Switch>
-      <AddCircleIcon style={{width: "40px", height:"40px", color: "orange", zIndex: "9999", position:"absolute", right:"10px", bottom:"10px"}}
-      onClick={()=>{history.push(("/post"))}}/>
+      <Permit>
+        <AddCircleIcon style={{width: "40px", height:"40px", color: "orange", zIndex: "9999", position:"absolute", right:"10px", bottom:"10px"}}
+        onClick={()=>{history.push(("/post"))}}/>  
+      </Permit>
+      
     </Wrap>
   );
 }

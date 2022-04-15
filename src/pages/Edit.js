@@ -8,8 +8,8 @@ import { actionCreators as hobbyCreators } from "../redux/modules/hobby";
 import { actionCreators as imageCreators } from "../redux/modules/image";
 import { useEffect } from "react";
 
-
-const Post = () => {
+//게시글 수정
+const Edit = () => {
     const isLogin = useSelector((state) => state.user.status);
     const dispatch = useDispatch();
     const history = useHistory();
@@ -46,15 +46,12 @@ const Post = () => {
         })
     }
 
-    const postHobby = () => {
+    const editHobby = () => {
         if(title === '' || content===''){
             alert('제목과 내용을 적어주세요.');
             return;
-        }else if(!fileInput.current || fileInput.current.files.length === 0){
-            alert("이미지 파일을 선택해주세요. ");
-            return;
         }else{
-            dispatch(hobbyCreators.post_hobby(content, image, title, url));
+            dispatch(hobbyCreators.update_hobby(content, image, title, url));
         }
     } 
 
@@ -146,4 +143,4 @@ height: 250px;
 margin: auto;
 display: flex;
 `
-export default Post;
+export default Edit;

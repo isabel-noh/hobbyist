@@ -1,10 +1,12 @@
 import React from "react";
-
+import { useSelector } from "react-redux";
 
 const Permit = (props) => {
-    const isLogin = localStorage.getItem('username')? true: false;
+    const isLocalStorage = localStorage.getItem('username')? true: false;
+    const isLogin = useSelector(state => state.user.status);
 
-    if(isLogin){
+
+    if(isLogin && isLocalStorage){
         return (
             <React.Fragment>
                {props.children}

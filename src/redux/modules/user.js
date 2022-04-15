@@ -22,9 +22,9 @@ const userAuth = createAction(USER_AUTH, (user) => ({user}));
 
 //initialState
 const initialState = {
-    user:null,
-    // username: null,
-    // status: false, // status : 로그인 상태 여부
+    // user: null,
+    username: null,
+    status: false, // status : 로그인 상태 여부
     nickname: null,
 }
 
@@ -59,7 +59,7 @@ const log_in = (username, password) => {
         {
         //server로부터 받은 메시지를 리덕스 status에 저장하고 싶은데 .
         dispatch(logIn({
-            user: response.username, 
+            username: response.username, 
             nickname: response.nickname,
             // status: response.result.status
         }))
@@ -113,11 +113,15 @@ const user_auth = () => {
     return function (dispatch, getState) {
         const username = localStorage.getItem('username');
         const response = RESP.GETUSERAUTH;
+        // console.log(response);
+        // return;
+
         if(response.status === true) {
             dispatch(log_in({
                 username: response.username,
                 status: true,
                 nickname: response.nickname,
+                // ...response.username
             }));
         }else{
             dispatch(log_out());
@@ -142,15 +146,18 @@ const user_auth = () => {
 //Reducer
 export default handleActions({
     [LOG_IN]: (state, action) => produce(state, (draft) => {
-        draft.user = action.payload.user;
+        draft.username = action.payload.user.username;
+        draft.nickname = action.payload.user.nickname;
         draft.status = true;
     }),
     [LOG_OUT]: (state, action) => produce(state, (draft) => {
-        draft.user = null;
+        draft.username = null;
+        draft.nickname = null;
         draft.status = false;
     }),
     [USER_AUTH]: (state, action) => produce(state, (draft) => {
-        draft.user = action.payload.user;
+        draft.username = action.payload.user.username;
+        draft.nickname = action.payload.user.nickname;
         draft.status = true;
     })
 }, initialState);

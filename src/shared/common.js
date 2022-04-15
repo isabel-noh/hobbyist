@@ -1,8 +1,14 @@
 import React from "react";
 
-//이메일 형식 확인하는 함수
+//아이디 형식 확인하는 함수
 export const idCheck = (username) => {
-    let _reg = /^[0-9a-zA-Z]([-_.0-9a-zA-Z])*@[0-9a-zA-Z]([-_.0-9a-zA-z])*.([a-zA-Z])*/;
+    let _reg = /^[0-9a-zA-Z]{3,20}$/;
 
     return _reg.test(username);
 }
+export const pwdCheck = (password) => {
+    const pwdRegExp = /^[A-Za-z\d@$!%*?&]{4,20}$/;
+    return pwdRegExp.test(pwd);
+}
+
+export { idCheck, pwdCheck};
